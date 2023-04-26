@@ -66,7 +66,7 @@
             while (!valid)
             {
                 Console.WriteLine(askQuestion);
-                string input = Console.ReadLine();
+                string? input = Console.ReadLine();
 
                 if (!string.IsNullOrEmpty(input))
                 {
@@ -108,7 +108,7 @@
             while (!valid)
             {
                 Console.WriteLine(askQuestion);
-                string input = Console.ReadLine();
+                string? input = Console.ReadLine();
 
                 if (!string.IsNullOrEmpty(input))
                 {
