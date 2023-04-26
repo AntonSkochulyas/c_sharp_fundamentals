@@ -10,7 +10,7 @@ namespace HomeWork_2
             Unauthorized,
             PaymentRequired,
             Forbidden,
-            NotFound,
+            NotFound
         }
 
         struct Dog
