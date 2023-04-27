@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.Security.Principal;
+using System.Transactions;
 
 namespace Task_2
 {
@@ -14,11 +15,35 @@ namespace Task_2
         Unexecuted
     }
 
+    enum Food
+    {
+        Fish = 100,
+        Mouse = 75,
+        Bird = 50,
+        Nothing = 0
+    }
+
     struct RGB
     {
         public byte red;
         public byte green;
         public byte blue;
+    }
+
+    struct Student
+    {
+        string lastName;
+        int groupNumber;
+    }
+
+    internal class Cat
+    {
+        public int fullnessLevel = 0;
+
+        public void EatSomething(Food food)
+        {
+            fullnessLevel += (int)food;
+        }
     }
 
     internal class Program
@@ -75,7 +100,65 @@ namespace Task_2
                 black.green = 0;
                 black.blue = 0;
             }
+
+            // Additional Tasks
+            // Create class Cat. The cat should have a property "fullness level" and method "eat something".
+            // Create enum Food (fish, mouse, ...). Each type of food should change the level of satiety differently.
+
+            Cat myCat = new Cat();
+            myCat.EatSomething(Food.Fish);
+            myCat.EatSomething(Food.Mouse);
+            Console.WriteLine(myCat.fullnessLevel);
+
+            // Create struct Student with fields last name and group number.
+            // Create array of students and output student names of a given group that begin with a given letter.
+            // The last name and group number are entered from the console.
+
+            Console.WriteLine("Enter your group size: ");
+            int length = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Enter each student LastName and group");
+            string[] groupLastNames = new string[length];
+            int[] groupNumbers = new int[length];
+
+            for (int i = 0; i < length; ++i)
+            {
+                Console.WriteLine("Enter student LastName: ");
+                groupLastNames[i] = Console.ReadLine();
+                Console.WriteLine("Enter student group: ");
+                groupNumbers[i] = int.Parse(Console.ReadLine());
+            }
+
+            Console.WriteLine("Enter first LastName Letter: ");
+            char firstLetter = Char.ToUpper(char.Parse(Console.ReadLine()));
+            Console.WriteLine("All students with this first Letter: ");
+            for (int j = 0; j < length; ++j)
+            {
+                if (firstLetter == groupLastNames[j][0])
+                    Console.WriteLine($"{groupLastNames[j]}, group = {groupNumbers[j]}");
+            }
         }
+
+        public static uint LeastCommonMultiple(uint value1, uint value2)
+        {
+            uint i = 1;
+            while (value1 % i == 0 && value2 % i == 0)
+                i++;
+            return i;
+        }
+
+        public static uint ReturnMin(uint a, uint b)
+        {
+            if (a == 0 || b == 0)
+                return 0;
+            if (a == b)
+                return a;
+            if (a > b)
+                return ReturnMin(a - b, b);
+
+            return ReturnMin(a, b - a);
+        }
+
         private static int AskUserValidNumber(string askQuestion = "")
         {
             int validNumber = 0;
