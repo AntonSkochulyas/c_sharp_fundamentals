@@ -1,11 +1,11 @@
 ﻿
-namespace HomeWork_3
+namespace Task_3
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            // HomeWork3]
+            // Task_3
             // Enter two integer numbers a and b.
             // Calculate how many integers in the range[a..b] are divided by 3 without remainder. //1..10 -> 3
             Console.WriteLine("Enter Range of two numbers:");
