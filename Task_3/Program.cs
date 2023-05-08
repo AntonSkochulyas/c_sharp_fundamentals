@@ -9,16 +9,9 @@ namespace Task_3
             Car car_2 = new Car("Opel", "White", 1000);
             Car car_3 = new Car("Mercedes", "Blue", 10500);
 
+            car_1.ChangePrice(-10);
+            car_1.Color = "White";
             car_1.Print();
-            car_2.Print();
-            car_3.Print();
-
-            car_1.ChangePrice(10);
-            car_1.Print();
-            car_1.Color = "Red";
-            car_1.Print();
-
-            Console.WriteLine(car_1 == car_2);
         }
     }
 
