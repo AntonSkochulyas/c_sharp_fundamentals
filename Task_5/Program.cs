@@ -9,23 +9,23 @@
 
         class Bird : IFlyable
         {
-            string name;
-            bool canFly;
+            string name = "Solovey";
+            bool canFly = true;
 
             public void Fly()
             {
-                Console.WriteLine($"Bird can fly? {canFly}");
+                Console.WriteLine($"Bird name = {name}, Bird can fly? {canFly}");
             }
         }
 
         class Plane : IFlyable
         {
-            string mark;
-            float highFly;
+            string mark = "Boing";
+            float highFly = 10000f;
 
             public void Fly()
             {
-                Console.WriteLine($"Plane is flying up {highFly} meters");
+                Console.WriteLine($"Plane mark = {mark}, Plane is flying up {highFly} meters");
             }
         }
         
@@ -40,12 +40,13 @@
             {
                 flyObject.Fly();
             }
+            Console.WriteLine("__________________________________________________");
 
             List<int> myColl = new List<int>();
             Console.WriteLine("Enter 10 digits");
             for (int i = 0; i < 10; ++i)
             {
-                Console.WriteLine($"Enter {i} digit");
+                Console.WriteLine($"Enter {i + 1} digit");
                 myColl.Add(int.Parse(Console.ReadLine()));
             }
 
@@ -54,10 +55,23 @@
                 if (digit == -10)
                     Console.WriteLine(myColl.IndexOf(digit));
                 if (digit > 20)
-                {
                     myColl.RemoveAt(digit);
-                }
             }
+            Console.WriteLine("__________________________________________________");
+
+            foreach (var digit in myColl)
+                Console.WriteLine($"Digit = {digit}");
+
+
+            Console.WriteLine("__________________________________________________");
+            myColl.Insert(2, 1);
+            myColl.Insert(8, -3);
+            myColl.Insert(5, -4);
+
+            /myColl.Sort();
+
+            foreach (var digit in myColl)
+                Console.WriteLine($"Digit = {digit}");
         }
     }
 }
