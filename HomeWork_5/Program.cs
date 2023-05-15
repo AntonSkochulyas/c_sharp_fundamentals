@@ -3,56 +3,57 @@ using System.Runtime.InteropServices;
 
 namespace HomeWork_5
 {
+    public interface IDeveloper : IComparable<IDeveloper>
+    {
+        string Tool { get; set; }
+
+        public void Create();
+        public void Destroy();
+    }
+
+    public class Programmer : IDeveloper
+    {
+        string language = String.Empty;
+        public string Tool { get; set; }
+
+        public void Create()
+        {
+            Console.WriteLine("Create Method in class Programmer");
+        }
+        public void Destroy()
+        {
+            Console.WriteLine("Destroy Method in class Programmer");
+        }
+
+        public int CompareTo(IDeveloper? other)
+        {
+            return string.Compare(Tool, other?.Tool);
+        }
+    }
+
+    public class Builder : IDeveloper
+    {
+        string tool = String.Empty;
+        public string Tool { get; set; }
+
+        public void Create()
+        {
+            Console.WriteLine("Create Method in class Builder");
+        }
+        public void Destroy()
+        {
+            Console.WriteLine("Destroy Method in class Builder");
+        }
+
+        public int CompareTo(IDeveloper? other)
+        {
+            return string.Compare(Tool, other.Tool);
+        }
+    }
+
     internal class Program
     {
-        interface IDeveloper
-        {
-            string Tool { get; set; }
-
-            public void Create() { }
-            public void Destroy() { }
-        }
-
-        public class Programmer : IDeveloper, IComparable<Programmer>
-        {
-            string language = String.Empty;
-            public string Tool { get; set ; }
-
-
-            public void Create()
-            {
-                Console.WriteLine("Create Method in class Programmer");
-            }
-            public void Destroy()
-            {
-                Console.WriteLine("Destroy Method in class Programmer");
-            }
-
-            public int CompareTo(Programmer other)
-            {
-                return string.Compare(Tool, other.Tool);
-            }
-        }
-
-        public class Builder : IDeveloper, IComparable<Builder>
-        {
-            string tool = String.Empty;
-            public string Tool { get; set; }
-
-            public void Create()
-            {
-                Console.WriteLine("Create Method in class Builder");
-            }
-            public void Destroy()
-            {
-                Console.WriteLine("Destroy Method in class Builder");
-            }
-
-            public int CompareTo(Builder other)
-            {
-                return string.Compare(Tool, other.Tool);
-            }
-        }
+        
 
         static void Main(string[] args)
         {
