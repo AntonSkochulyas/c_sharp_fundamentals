@@ -26,30 +26,56 @@
 
 
             /// 3
+            //List<int> numbers = new List<int>();
+
+            //for (int i = 0; i < 10; ++i)
+            //{
+            //    try
+            //    {
+            //        numbers.Add(ReadNumber(1, 100));
+            //        if (i > 0 && numbers[i] <= numbers[i - 1])
+            //        {
+            //            numbers.RemoveAt(i);
+            //            throw new ArgumentException("All next numbers must be greater!");
+            //        }
+            //    }
+            //    catch (ArgumentException ex)
+            //    {
+            //        Console.WriteLine("All next numbers must be greater!");
+            //    }
+            //    catch (FormatException ex)
+            //    {
+            //        Console.WriteLine("Format Exception, your number is in wrong format");
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        Console.WriteLine("Your Number is out of Range");
+            //    }
+            //}
+
+            //foreach (int i in numbers)
+            //    Console.WriteLine($"Number = {i}");
+
             List<int> numbers = new List<int>();
 
-            for (int i = 0; i < 10; ++i)
+            for (int i = 0; i < 5;)
             {
                 try
                 {
-                    numbers.Add(ReadNumber(1, 100));
-                    if (i > 0 && numbers[i] <= numbers[i - 1])
-                    {
-                        numbers.RemoveAt(i);
-                        throw new ArgumentException("All next numbers must be greater!");
-                    }
+                    numbers.Add(ReadNumber(i == 0 ? 1 : numbers.Last(), 100));
+                    ++i;
                 }
                 catch (ArgumentException ex)
                 {
-                    Console.WriteLine("All next numbers must be greater!");
+                    Console.WriteLine(ex.Message);
                 }
                 catch (FormatException ex)
                 {
-                    Console.WriteLine("Format Exception, your number is in wrong format");
+                    Console.WriteLine(ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Your Number is out of Range");
+                    Console.WriteLine(ex.Message);
                 }
             }
 

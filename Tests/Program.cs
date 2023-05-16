@@ -2,55 +2,85 @@
 {
     internal class Program
     {
-        interface IDeveloper
+        public static List<string> CreateCommonList(Queue<string> q, Stack<string> s)
         {
-            string Tool { get; set; }
-
-            public void Create() { }
-            public void Destroy() { }
-        }
-
-        class Programmer : IDeveloper, IComparable<Programmer>
-        {
-            private string language;
-
-            public string Tool { get => language; set => language = value; }
-
-            public Programmer(string language)
+            List<string> list = new List<string>();
+            
+            foreach (var item in q)
             {
-                this.language = language;
+                list.Add(item);
             }
-            public int CompareTo(Programmer? other)
+
+            foreach (var item in s)
             {
-                return string.Compare(Tool, other?.Tool);
+                bool existed = false;
+
+                foreach (var item2 in list)
+                {
+                    if (item == item2)
+                    {
+                        existed = true;
+                        list.Remove(item2);
+                        break;
+                    }
+                }
+
+                if (!existed)
+                {
+                    list.Add(item);
+                }
             }
-        }
 
-        class Builder : IDeveloper, IComparable<Builder>
-        {
-            string tool;
-
-            public string Tool { get; set; }
-
-            public int CompareTo(Builder? other)
-            {
-                return string.Compare(Tool, other?.Tool);
-            }
+            return list;
         }
 
         static void Main(string[] args)
         {
-            List<Programmer> developers = new List<Programmer>();
-            developers.Add(new Programmer("C#"));
-            developers.Add(new Programmer("C++"));
+            Queue<string> q = new Queue<string>();
+            q.Enqueue("a");
+            q.Enqueue("n");
+            q.Enqueue("t");
 
-            //foreach (var dev in developers)
-            //{
-            //    dev.Create();
-            //    dev.Destroy();
-            //}
+            Stack<string> s = new Stack<string>();
+          
+            s.Push("n");
+            s.Push("o");
 
-            developers.Sort();
+            List<string> list = CreateCommonList(q, s);
+
+            foreach (string item in list)
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 }
+
+
+//List<int> numbers = new List<int>();
+
+//for (int i = 0; i < 5; ++i)
+//{
+//    try
+//    {
+//        if (i == 0)
+//            numbers.Add(ReadNumber(1, 100));
+//        else
+//            numbers.Add(ReadNumber(numbers[i - 1], 100));
+//    }
+//    catch (ArgumentException ex)
+//    {
+//        Console.WriteLine("All next numbers must be greater!");
+//    }
+//    catch (FormatException ex)
+//    {
+//        Console.WriteLine("Format Exception, your number is in wrong format");
+//    }
+//    catch (Exception ex)
+//    {
+//        Console.WriteLine("Your Number is out of Range");
+//    }
+//}
+
+//foreach (int i in numbers)
+//    Console.WriteLine($"Number = {i}");
