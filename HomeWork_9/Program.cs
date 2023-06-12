@@ -1,5 +1,4 @@
-﻿using System.Text;
-
+﻿
 namespace HomeWork_9
 {
     internal class Program
@@ -55,7 +54,7 @@ namespace HomeWork_9
             }
         }
 
-        public static void WriteShapeListToFile(List<Shape> shapes)
+        public static void WriteShapeListToFile(IEnumerable<Shape> shapes)
         {
             string text = String.Empty;
 
@@ -70,41 +69,6 @@ namespace HomeWork_9
             {
                 sw.WriteLine(text);
             }
-        }
-
-        public static List<Shape> FindShapesByArea(List<Shape> shapes, int from, int to)
-        {
-            List<Shape> result = new List<Shape>();
-
-            foreach (Shape shape in shapes)
-                if (shape.Area() >= from && shape.Area() < to)
-                    result.Add(shape);
-
-            return result;
-        }
-
-        public static List<Shape> FindShapesByName(List<Shape> shapes, char c)
-        {
-            List<Shape> result = new List<Shape>();
-
-            foreach (Shape shape in shapes)
-            {
-                if (shape.Name.Contains(c))
-                    result.Add(shape);
-            }
-            return result;
-        }
-        public static void FindShapesByPerimeter(List<Shape> shapes)
-        {
-            List<Shape> result = new List<Shape>();
-
-            foreach (Shape shape in shapes)
-                if (shape.Perimeter() < 5)
-                    result.Add(shape);
-
-            foreach (Shape shape1 in result)
-                if (shapes.Contains(shape1))
-                    shapes.Remove(shape1);
         }
 
         public static void AddShapes(List<Shape> shapes)
@@ -130,20 +94,29 @@ namespace HomeWork_9
             return text;
         }
 
+        public static bool FindShapesByName(Shape shape)
+        {
+            return shape.Name.Contains('A');
+        }
+
+
         static void Main(string[] args)
         {
-            // HomeWork_9 (A)
+            HomeWork_9(A)
             List<Shape> shapes = new List<Shape>();
             AddShapes(shapes);
 
-            WriteShapeListToFile(FindShapesByArea(shapes, 10, 100));
-            WriteShapeListToFile(FindShapesByName(shapes, 'A'));
-            FindShapesByPerimeter(shapes);
+            WriteShapeListToFile(shapes.Where(FindShapesByName));
+            WriteShapeListToFile(shapes.Where(s => s.Area() > 10 && s.Area() < 100));
+            shapes = shapes.Where(s => s.Perimeter() < 5).ToList();
 
             foreach (Shape shape in shapes)
+            {
                 Console.WriteLine("Shape = " + shape.Name);
+            }
 
-            // HomeWork_9 (B)
+
+            //HomeWork_9(B)
 
             string[] fileText = ReadTextFile();
 

@@ -1,71 +1,64 @@
-﻿namespace Tests
+﻿using System.Linq;
+
+namespace Tests
 {
     internal class Program
     {
-        public static List<string> CreateCommonList(Queue<string> q, Stack<string> s)
+        public class Student
         {
-            List<string> result = new List<string>();
+            public int Rating { get; set; }
+            public string Name { get; set; }
+            public string Group { get; set; }
+            public List<string> Subjects { get; } = new List<string>();
 
-            foreach (var item in q)
+            public Student(int rating, string name, string group, List<string> subjects)
             {
-                if (!s.Contains(item))
-                    result.Add(item);
+                Rating = rating;
+                Name = name;
+                Group = group;
+                Subjects = subjects;
             }
-            foreach (var item in s)
-                if (!q.Contains(item))
-                    result.Add(item);
+
+            public override bool Equals(object? obj)
+            {
+                if (obj is Student otherStudent)
+                {
+                    return Name == otherStudent.Name && Rating == otherStudent.Rating && Group == otherStudent.Group;
+                }
+                return false;
+            }
+        }
+        public static IEnumerable<Student> Filter(IEnumerable<Student> students)
+        {
+            return students.Where(s => s.Rating >= 75 && (s.Subjects.Contains("Math") || s.Subjects.Contains("English")));
+        }
+
+        public static string SearchLongestWordStartingWithA(string sentence)
+        {
+            string result = String.Empty;
+
+
 
             return result;
-        }
-
-        public static T FindValueByConditionOrDefault<T>(Dictionary<int, T> dictionary, Func<bool> predicate, T defaultValue)
+}
+        static void Main(string[] args)
         {
-            foreach (var item in dictionary)
+            List<string> subjects = new List<string>();
+            subjects.Add("Math");
+            subjects.Add("History");
+            List<string> subjects2 = new List<string>();
+            subjects2.Add("Math");
+            subjects2.Add("English");
+            List<Student> students = new List<Student>();
+            students.Add(new Student(75, "Ivan", "pm", subjects));
+            students.Add(new Student(76, "Petro", "kn", subjects2));
+
+            IEnumerable<Student> students1 = Filter(students);
+
+            foreach(Student student in students1)
             {
-                if (predicate())
-                    return item.Value;
+                Console.WriteLine($"{student.Name}, {student.Group}, {student.Subjects}");
             }
-            return defaultValue;
-        }
-
-        public static int Predicate()
-        {
-            return 1;
-        }
-    static void Main(string[] args)
-        {
-            Dictionary<int, int> my = new Dictionary<int, int>();
-            my.Add(1, 2);
-            int result = FindValueByConditionOrDefault<int>(my, Predicate, 10);
         }
     }
 }
-
-
-//List<int> numbers = new List<int>();
-
-//for (int i = 0; i < 5; ++i)
-//{
-//    try
-//    {
-//        if (i == 0)
-//            numbers.Add(ReadNumber(1, 100));
-//        else
-//            numbers.Add(ReadNumber(numbers[i - 1], 100));
-//    }
-//    catch (ArgumentException ex)
-//    {
-//        Console.WriteLine("All next numbers must be greater!");
-//    }
-//    catch (FormatException ex)
-//    {
-//        Console.WriteLine("Format Exception, your number is in wrong format");
-//    }
-//    catch (Exception ex)
-//    {
-//        Console.WriteLine("Your Number is out of Range");
-//    }
-//}
-
-//foreach (int i in numbers)
-//    Console.WriteLine($"Number = {i}");
