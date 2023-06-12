@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Tests
 {
@@ -37,7 +38,10 @@ namespace Tests
         {
             string result = String.Empty;
 
+            for (int i = 0; i < sentence.Length; i++)
+            {
 
+            }
 
             return result;
 }
@@ -59,6 +63,7 @@ namespace Tests
             {
                 Console.WriteLine($"{student.Name}, {student.Group}, {student.Subjects}");
             }
+
         }
     }
 }

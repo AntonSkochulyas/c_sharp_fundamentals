@@ -102,7 +102,7 @@ namespace HomeWork_9
 
         static void Main(string[] args)
         {
-            HomeWork_9(A)
+            //HomeWork_9(A)
             List<Shape> shapes = new List<Shape>();
             AddShapes(shapes);
 
