@@ -4,54 +4,39 @@
     {
         public static List<string> CreateCommonList(Queue<string> q, Stack<string> s)
         {
-            List<string> list = new List<string>();
-            
+            List<string> result = new List<string>();
+
             foreach (var item in q)
             {
-                list.Add(item);
+                if (!s.Contains(item))
+                    result.Add(item);
             }
-
             foreach (var item in s)
-            {
-                bool existed = false;
+                if (!q.Contains(item))
+                    result.Add(item);
 
-                foreach (var item2 in list)
-                {
-                    if (item == item2)
-                    {
-                        existed = true;
-                        list.Remove(item2);
-                        break;
-                    }
-                }
-
-                if (!existed)
-                {
-                    list.Add(item);
-                }
-            }
-
-            return list;
+            return result;
         }
 
-        static void Main(string[] args)
+        public static T FindValueByConditionOrDefault<T>(Dictionary<int, T> dictionary, Func<bool> predicate, T defaultValue)
         {
-            Queue<string> q = new Queue<string>();
-            q.Enqueue("a");
-            q.Enqueue("n");
-            q.Enqueue("t");
-
-            Stack<string> s = new Stack<string>();
-          
-            s.Push("n");
-            s.Push("o");
-
-            List<string> list = CreateCommonList(q, s);
-
-            foreach (string item in list)
+            foreach (var item in dictionary)
             {
-                Console.WriteLine(item);
+                if (predicate())
+                    return item.Value;
             }
+            return defaultValue;
+        }
+
+        public static int Predicate()
+        {
+            return 1;
+        }
+    static void Main(string[] args)
+        {
+            Dictionary<int, int> my = new Dictionary<int, int>();
+            my.Add(1, 2);
+            int result = FindValueByConditionOrDefault<int>(my, Predicate, 10);
         }
     }
 }
